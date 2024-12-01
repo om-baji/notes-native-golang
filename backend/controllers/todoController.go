@@ -158,14 +158,7 @@ func ToggleTodo(c *gin.Context) {
 		ID string
 	}
 
-	err := c.Bind(&body)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"Message": "Wrong body",
-			"success": false,
-		})
-		return
-	}
+	body.ID = c.Param("id")
 
 	var todo models.Todo
 

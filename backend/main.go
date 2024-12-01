@@ -35,7 +35,7 @@ func main() {
 	router.GET("/todos", middleware.RequireAuth, controllers.GetTodos)
 	router.GET("/todo", middleware.RequireAuth, controllers.GetTodo)
 	router.PUT("/todo", middleware.RequireAuth, controllers.UpdateTodo)
-	router.PUT("/todo/{id}", middleware.RequireAuth, controllers.ToggleTodo)
+	router.PUT("/todo/:id", middleware.RequireAuth, controllers.ToggleTodo)
 	router.POST("/todos", middleware.RequireAuth, controllers.AddTodo)
 	router.DELETE("/todo", middleware.RequireAuth, controllers.DeleteNote)
 
