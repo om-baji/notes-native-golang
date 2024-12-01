@@ -14,6 +14,7 @@ import (
 
 func Signup(c *gin.Context) {
 	var body struct {
+		Name     string
 		Email    string
 		Password string
 	}
@@ -38,6 +39,7 @@ func Signup(c *gin.Context) {
 	}
 
 	user := models.User{
+		Name:     body.Name,
 		Email:    body.Email,
 		Password: string(hash),
 	}
