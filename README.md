@@ -55,3 +55,11 @@ A minimalistic and performant note-taking application built using Golang, design
 | POST   | `/todos`     | Create a new todo          |
 | DELETE | `/todo`      | Delete a todo              |
 
+### Snippets
+
+![image](https://github.com/user-attachments/assets/12119cf2-c976-4a6e-800a-32d5317f60c5)
+![image](https://github.com/user-attachments/assets/121d49d2-0adb-42ec-9629-42bf3a149d77)
+![image](https://github.com/user-attachments/assets/43dbcb10-42b5-444d-85ac-ab5ca5073df7)
+
+
+
