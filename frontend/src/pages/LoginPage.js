@@ -2,17 +2,20 @@ import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useRecoilState } from "recoil";
 import { emailState, passwordState } from "../store/inputAtom";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useRecoilState(emailState);
   const [password, setPassword] = useRecoilState(passwordState);
+
+  const navigate = useNavigate()
 
   const { mutate, isLoading, isError, error } = useMutation({
     mutationFn: async () => {
       const response = await fetch("http://localhost:8080/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials : "include",
         body: JSON.stringify({ email, password }),
       });
       if (!response.ok) {
@@ -22,6 +25,8 @@ const LoginPage = () => {
     },
     onSuccess: (data) => {
       console.log("Login successful:", data);
+      navigate("/home")
+
     },
     onError: (err) => {
       console.error("Login failed:", err.message);
@@ -35,7 +40,7 @@ const LoginPage = () => {
   return (
     <div className="grid grid-cols-2">
       <div className="flex flex-col justify-center gap-4 items-center h-screen bg-neutral-100">
-        <span>Welcome back!</span>
+        <span>Welcome back! Log in to continue</span>
 
         <input
           placeholder="someone@abc.com"
@@ -61,12 +66,10 @@ const LoginPage = () => {
           <span className="text-red-500">Error: {error.message}</span>
         )}
 
-        {/* <span>
-          <Link>
-            New to notesnative?{" "}
-            <span className="bg-black underline">Register</span>
-          </Link>
-        </span> */}
+        <Link to={"/signup"} className="text-sm">
+          <span className="text-gray-500">New to NotesNative?</span>{" "}
+          <u>Register</u>
+        </Link>
       </div>
 
       <div className="flex justify-center items-center h-screen bg-neutral-900">

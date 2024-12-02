@@ -1,20 +1,23 @@
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { useRecoilState } from "recoil";
-import { emailState, passwordState } from "./store/inputAtom";
 import { nameState } from "../store/inputAtom";
-import { Link } from "react-router-dom";
+import { emailState, passwordState } from "../store/inputAtom";
+import { Link, useNavigate } from "react-router-dom"
 
 const SignupPage = () => {
   const [email, setEmail] = useRecoilState(emailState);
   const [password, setPassword] = useRecoilState(passwordState);
   const [name, setName] = useRecoilState(nameState)
 
+  const navigate = useNavigate()
+
   const { mutate, isLoading, isError, error } = useMutation({
     mutationFn: async () => {
       const response = await fetch("http://localhost:8080/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials :"include",
         body: JSON.stringify({ name,email, password }),
       });
       if (!response.ok) {
@@ -24,6 +27,7 @@ const SignupPage = () => {
     },
     onSuccess: (data) => {
       console.log("Login successful:", data);
+      navigate("/home")
     },
     onError: (err) => {
       console.error("Login failed:", err.message);
@@ -37,7 +41,7 @@ const SignupPage = () => {
   return (
     <div className="grid grid-cols-2">
       <div className="flex flex-col justify-center gap-4 items-center h-screen bg-neutral-100">
-        <span>Welcome back!</span>
+        <span>Create your account to get started!</span>
 
         <input
           placeholder="someone"
@@ -62,16 +66,16 @@ const SignupPage = () => {
           className="p-2 rounded-md w-[50%] bg-neutral-900 text-white"
           disabled={isLoading}
         >
-          {isLoading ? "Logging in..." : "Login"}
+          {isLoading ? "Signing up..." : "Sign up"}
         </button>
 
         {isError && (
           <span className="text-red-500">Error: {error.message}</span>
         )}
 
-        <span>
-            <Link>Already have an account? <span className="bg-black underline">Login</span></Link>
-        </span>
+        <Link to={"/signin"} className="text-sm">
+          <span className="text-gray-500">Already have an acccount?</span> <u>Login</u>
+        </Link>
       </div>
 
       <div className="flex justify-center items-center h-screen bg-neutral-900">

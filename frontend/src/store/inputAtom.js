@@ -14,3 +14,8 @@ export const nameState = atom({
     key : "nameState",
     default : ''
 })
+
+export const loadingState = atom({
+    key : "loadingState",
+    default : true
+})
