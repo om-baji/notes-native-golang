@@ -1,24 +1,30 @@
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { nameState } from "../store/inputAtom";
-import { emailState, passwordState } from "../store/inputAtom";
-import { Link, useNavigate } from "react-router-dom"
+import { emailState, nameState, passwordState } from "../store/inputAtom";
+import { SignUpSchema } from "../utils/models";
 
 const SignupPage = () => {
   const [email, setEmail] = useRecoilState(emailState);
   const [password, setPassword] = useRecoilState(passwordState);
-  const [name, setName] = useRecoilState(nameState)
+  const [name, setName] = useRecoilState(nameState);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { mutate, isLoading, isError, error } = useMutation({
     mutationFn: async () => {
+      const { success} = SignUpSchema.safeParse({ name,email, password });
+  
+      if (!success) {
+        throw new Error("Invalid Inputs");
+      }
+
       const response = await fetch("http://localhost:8080/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials :"include",
-        body: JSON.stringify({ name,email, password }),
+        credentials: "include",
+        body: JSON.stringify({ name, email, password }),
       });
       if (!response.ok) {
         throw new Error("Failed to sign in");
@@ -27,7 +33,7 @@ const SignupPage = () => {
     },
     onSuccess: () => {
       // console.log("Login successful:", data);
-      navigate("/home")
+      navigate("/home");
     },
     onError: (err) => {
       console.error("Login failed:", err.message);
@@ -74,18 +80,18 @@ const SignupPage = () => {
         )}
 
         <Link to={"/signin"} className="text-sm">
-          <span className="text-gray-500">Already have an acccount?</span> <u>Login</u>
+          <span className="text-gray-500">Already have an acccount?</span>{" "}
+          <u>Login</u>
         </Link>
       </div>
 
       <div className="flex justify-center items-center h-screen bg-neutral-900">
         <div className="text-center text-white p-6 max-w-lg">
-          <div className="text-3xl font-bold mb-4 text-white">
-            Notes Native
-          </div>
+          <div className="text-3xl font-bold mb-4 text-white">Notes Native</div>
           <p className="text-lg text-gray-300 leading-relaxed">
             "Your go-to app for managing notes and to-dos, keeping everything
-            organized and accessible in one place. Simplify your workflow today."
+            organized and accessible in one place. Simplify your workflow
+            today."
           </p>
         </div>
       </div>
@@ -94,4 +100,3 @@ const SignupPage = () => {
 };
 
 export default SignupPage;
-

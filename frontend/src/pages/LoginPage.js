@@ -3,19 +3,26 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { emailState, passwordState } from "../store/inputAtom";
 import { Link, useNavigate } from "react-router-dom";
+import { SignInSchema } from "../utils/models";
 
 const LoginPage = () => {
   const [email, setEmail] = useRecoilState(emailState);
   const [password, setPassword] = useRecoilState(passwordState);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { mutate, isLoading, isError, error } = useMutation({
     mutationFn: async () => {
+      const { success } = SignInSchema.safeParse({ email, password });
+
+      if (!success) {
+        throw new Error("Invalid Inputs");
+      }
+
       const response = await fetch("http://localhost:8080/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials : "include",
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
       if (!response.ok) {
@@ -24,9 +31,7 @@ const LoginPage = () => {
       return response.json();
     },
     onSuccess: () => {
-      // console.log("Login successful:", data);
-      navigate("/home")
-
+      navigate("/home");
     },
     onError: (err) => {
       console.error("Login failed:", err.message);

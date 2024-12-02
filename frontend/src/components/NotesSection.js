@@ -59,7 +59,7 @@ const NotesSection = () => {
             key={note.ID}
             className="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow"
           >
-            <NoteComponent title={note.Title} content={note.Content} />
+            <NoteComponent title={note.Title} content={note.Content} id={note.ID}/>
           </div>
         ))}
       </div>

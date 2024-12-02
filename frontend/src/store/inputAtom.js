@@ -19,3 +19,13 @@ export const loadingState = atom({
     key : "loadingState",
     default : true
 })
+
+export const titleState =atom({
+    key : "titleState",
+    default : ''
+})
+
+export const contentState = atom({
+    key : "contentState",
+    default : ''
+})
