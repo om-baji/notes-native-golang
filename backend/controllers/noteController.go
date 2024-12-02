@@ -107,6 +107,28 @@ func GetNotes(c *gin.Context) {
 	})
 }
 
+func GetNote(c *gin.Context) {
+	ID := c.Query("id")
+
+	var note models.Note
+
+	result := initialiser.DB.Where("ID=?", ID).Find(&note)
+
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "Failed to retrieve note details",
+			"success": false,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"Message": "Successfull",
+		"note":    note,
+		"success": true,
+	})
+}
+
 func UpdateNote(c *gin.Context) {
 	var updateBody struct {
 		Title   string

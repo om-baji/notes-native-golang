@@ -33,6 +33,7 @@ func main() {
 	router.GET("/validate", middleware.RequireAuth, controllers.Validate)
 
 	router.GET("/notes", middleware.RequireAuth, controllers.GetNotes)
+	router.GET("/note", middleware.RequireAuth, controllers.GetNote)
 	router.PUT("/notes", middleware.RequireAuth, controllers.UpdateNote)
 	router.POST("/notes", middleware.RequireAuth, controllers.AddNote)
 	router.DELETE("/notes", middleware.RequireAuth, controllers.DeleteNote)
