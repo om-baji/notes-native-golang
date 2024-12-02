@@ -54,6 +54,26 @@ func Signup(c *gin.Context) {
 		return
 	}
 
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": user.ID,
+		"exp": time.Now().Add(time.Hour * 24 * 30).Unix(),
+	})
+
+	secret := []byte(os.Getenv("JWT_SECRET"))
+
+	tokenString, err := token.SignedString(secret)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"Message": "Login failed!",
+			"token":   tokenString,
+		})
+		return
+	}
+
+	c.SetSameSite(http.SameSiteLaxMode)
+	c.SetCookie("Authorization", tokenString, 3600*24*30, "/", "", true, true)
+
 	c.JSON(http.StatusOK, gin.H{
 		"Message":  "Signup succesfull",
 		"response": result.RowsAffected,
@@ -115,7 +135,7 @@ func Login(c *gin.Context) {
 	}
 
 	c.SetSameSite(http.SameSiteLaxMode)
-	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
+	c.SetCookie("Authorization", tokenString, 3600*24*30, "/", "", true, true)
 
 	c.JSON(http.StatusOK, gin.H{
 		"Message": "Login successfull!",
