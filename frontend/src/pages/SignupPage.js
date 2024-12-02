@@ -25,8 +25,8 @@ const SignupPage = () => {
       }
       return response.json();
     },
-    onSuccess: (data) => {
-      console.log("Login successful:", data);
+    onSuccess: () => {
+      // console.log("Login successful:", data);
       navigate("/home")
     },
     onError: (err) => {

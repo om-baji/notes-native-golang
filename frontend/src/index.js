@@ -10,6 +10,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import reportWebVitals from "./reportWebVitals";
+import ViewNotes from "./pages/ViewNotes";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path : "/home",
     element : <LandingPage />
+  },
+  {
+    path : "/notes",
+    element : <ViewNotes />
   }
 ]);
 

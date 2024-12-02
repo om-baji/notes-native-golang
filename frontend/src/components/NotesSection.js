@@ -21,12 +21,9 @@ const NotesSection = () => {
       }
   
       const data = await response.json();
-      console.log(data);
+      // console.log(data.notes[0]);
+      setNotes(data.notes)
       return data;
-    },
-    onSuccess: (data) => {  
-      console.log("Control reached");
-      setNotes(data.notes); 
     },
     throwOnError : (err) => {
       console.error(err)
@@ -62,7 +59,7 @@ const NotesSection = () => {
             key={note.ID}
             className="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow"
           >
-            <NoteComponent title={note.title} content={note.content} />
+            <NoteComponent title={note.Title} content={note.Content} />
           </div>
         ))}
       </div>
