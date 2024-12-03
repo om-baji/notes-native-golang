@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"fn/initialiser"
 	"fn/models"
 	"net/http"
@@ -25,6 +26,20 @@ func Signup(c *gin.Context) {
 			"Message": "Failed to read body",
 		})
 
+		return
+	}
+
+	tempUser := models.User{
+		Name:     body.Name,
+		Email:    body.Email,
+		Password: body.Password,
+	}
+
+	if err := tempUser.Validate(); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": fmt.Sprintf("Validation failed: %s", err),
+			"success": false,
+		})
 		return
 	}
 

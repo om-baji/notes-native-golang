@@ -1,10 +1,16 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type Todo struct {
 	gorm.Model
-	Content   string
+	Content   string `validate:"required,min=3"`
 	Completed bool
-	Email     string
+	Email     string `validate:"required,email"`
+}
+
+func (todo *Todo) Validate() error {
+	return validate.Struct(todo)
 }

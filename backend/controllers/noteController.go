@@ -55,6 +55,16 @@ func AddNote(c *gin.Context) {
 		Email:   user.Email,
 	}
 
+	err = note.Validate()
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"Message": fmt.Sprintf("Validation failed: %s", err),
+			"success": false,
+		})
+		return
+	}
+
 	result := initialiser.DB.Create(&note)
 
 	if result.Error != nil {
@@ -162,6 +172,19 @@ func UpdateNote(c *gin.Context) {
 
 	if updateBody.Title == "" {
 		updateBody.Title = note.Title
+	}
+
+	updatedNote := models.Note{
+		Title:   updateBody.Title,
+		Content: updateBody.Content,
+	}
+
+	if err := updatedNote.Validate(); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": fmt.Sprintf("Validation failed: %s", err),
+			"success": false,
+		})
+		return
 	}
 
 	result := initialiser.DB.Model(&models.Note{}).Where("id = ?", updateBody.ID).

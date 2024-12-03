@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"fn/initialiser"
 	"fn/models"
 	"net/http"
@@ -33,6 +34,14 @@ func AddTodo(c *gin.Context) {
 		Content:   body.Content,
 		Completed: false,
 		Email:     user.Email,
+	}
+
+	if err := todo.Validate(); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": fmt.Sprintf("Validation failed: %s", err),
+			"success": false,
+		})
+		return
 	}
 
 	result := initialiser.DB.Create(&todo)
@@ -133,10 +142,23 @@ func UpdateTodo(c *gin.Context) {
 		return
 	}
 
+	todo := models.Todo{
+		Content:   body.Content,
+		Completed: false,
+	}
+
+	if err := todo.Validate(); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": fmt.Sprintf("Validation failed: %s", err),
+			"success": false,
+		})
+		return
+	}
+
 	result := initialiser.DB.
 		Model(&models.Todo{}).
 		Where("ID=?", body.ID).
-		Updates(models.Todo{Content: body.Content, Completed: false})
+		Updates(todo)
 
 	if result.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
