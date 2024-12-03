@@ -10,7 +10,7 @@ const LandingPage = () => {
 
       <TodosSection />
 
-      <NotesSection />
+      <NotesSection expanded={false}/>
     </div>
   );
 };

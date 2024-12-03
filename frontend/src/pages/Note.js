@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useSearchParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { contentState, titleState } from "../store/inputAtom";
 import SideBar from "../components/SideBar";
+import { contentState, titleState } from "../store/inputAtom";
 
 const Note = () => {
   const [params] = useSearchParams();
@@ -35,6 +36,24 @@ const Note = () => {
     },
   });
 
+  const handleSave = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/notes", {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content, ID : parseInt(ID) }),
+      });
+
+      if (!res.ok) throw new Error("Failed to save changes!");
+
+      toast.success("Changes Saved!");
+      setIsEditing(false);
+    } catch (err) {
+      toast.error(err.message || "Something went wrong!");
+    }
+  };
+
   const toggleEditMode = () => setIsEditing((prev) => !prev);
 
   if (isLoading) {
@@ -65,26 +84,34 @@ const Note = () => {
           </h2>
           <button
             onClick={toggleEditMode}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-300 transition"
           >
-            {isEditing ? "View" : "Edit"}
+            {isEditing ? "Cancel" : "Edit"}
           </button>
         </div>
 
         {isEditing ? (
-          <div className="w-full h-full">
+          <div className="w-full h-full bg-white shadow-md rounded-lg p-6">
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-6 rounded-md text-4xl font-semibold text-neutral-800 mb-4 focus:outline-none"
+              className="w-full p-4 mb-4 text-xl font-semibold text-neutral-800 border rounded-md shadow-sm focus:outline-none border-none "
               placeholder="Enter title..."
             />
-            <textarea
+            <textarea 
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full h-[calc(100vh-200px)] p-6 rounded-md text-lg text-neutral-700 resize-none focus:outline-none"
+              className="w-full h-[60vh] p-4 text-lg text-neutral-700 border rounded-md shadow-sm resize-none focus:outline-none border-none "
               placeholder="Write your note..."
             />
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={handleSave}
+                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+              >
+                Save Changes
+              </button>
+            </div>
           </div>
         ) : (
           <div className="bg-white shadow-lg rounded-xl p-6">

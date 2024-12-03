@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { noteState } from "../store/NotesAtom";
 import NoteComponent from "./NoteComponent";
 
-const NotesSection = () => {
+const NotesSection = ({expanded}) => {
   const [notes, setNotes] = useRecoilState(noteState);
 
   const { isLoading, isError, error } = useQuery({
@@ -59,7 +59,7 @@ const NotesSection = () => {
             key={note.ID}
             className="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow"
           >
-            <NoteComponent title={note.Title} content={note.Content} id={note.ID}/>
+            <NoteComponent title={note.Title} content={note.Content} id={note.ID} expanded={expanded}/>
           </div>
         ))}
       </div>

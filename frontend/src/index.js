@@ -12,6 +12,8 @@ import SignupPage from "./pages/SignupPage";
 import reportWebVitals from "./reportWebVitals";
 import ViewNotes from "./pages/ViewNotes";
 import Note from "./pages/Note";
+import { Toaster } from "react-hot-toast";
+import AddNote from "./pages/AddNote";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -29,17 +31,21 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path : "/home",
-    element : <LandingPage />
+    path: "/home",
+    element: <LandingPage />,
   },
   {
-    path : "/notes",
-    element : <ViewNotes />
+    path: "/notes",
+    element: <ViewNotes />,
   },
   {
-    path : "/note",
-    element : <Note />
-  }
+    path: "/note",
+    element: <Note />,
+  },
+  {
+    path: "/add",
+    element: <AddNote />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -47,15 +53,13 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={client}>
       <RecoilRoot>
-        <RouterProvider router={router}>
-          <App />
-        </RouterProvider>
+        <Toaster />
+          <RouterProvider router={router}>
+            <App />
+          </RouterProvider>
       </RecoilRoot>
     </QueryClientProvider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
