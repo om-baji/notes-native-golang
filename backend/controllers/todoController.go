@@ -194,10 +194,12 @@ func ToggleTodo(c *gin.Context) {
 		return
 	}
 
+	todo.Completed = !todo.Completed
+
 	result := initialiser.DB.
 		Model(&models.Todo{}).
 		Where("ID=?", body.ID).
-		Updates(models.Todo{Completed: !todo.Completed})
+		Update("Completed", todo.Completed)
 
 	if result.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
