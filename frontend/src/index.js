@@ -14,6 +14,7 @@ import ViewNotes from "./pages/ViewNotes";
 import Note from "./pages/Note";
 import { Toaster } from "react-hot-toast";
 import AddNote from "./pages/AddNote";
+import Todo from "./pages/Todo";
 
 const client = new QueryClient();
 const router = createBrowserRouter([
@@ -43,9 +44,13 @@ const router = createBrowserRouter([
     element: <Note />,
   },
   {
-    path: "/add",
+    path: "/addNote",
     element: <AddNote />,
   },
+  {
+    path : "/todos",
+    element : <Todo />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -54,9 +59,9 @@ root.render(
     <QueryClientProvider client={client}>
       <RecoilRoot>
         <Toaster />
-          <RouterProvider router={router}>
-            <App />
-          </RouterProvider>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
       </RecoilRoot>
     </QueryClientProvider>
   </React.StrictMode>

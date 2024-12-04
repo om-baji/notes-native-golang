@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 import { todoState } from "../store/TodoAtom";
 
-const TodosSection = () => {
+const TodosSection = ({completed}) => {
   const [todos, setTodos] = useRecoilState(todoState);
 
   const {isLoading,isError,error} = useQuery({
@@ -25,7 +25,7 @@ const TodosSection = () => {
       setTodos(data.todos);
       return data;
     },
-    throwOnError: (err) => {
+    OnError: (err) => {
       console.error(err);
     },
   });
@@ -48,11 +48,15 @@ const TodosSection = () => {
     );
   }
 
+  const filteredTodos = todos.filter((todo) => todo.Completed === completed)
+
   return (
     <div className="flex flex-col p-10 bg-gray-100">
-      <h2 className="text-3xl font-bold mb-8 text-neutral-800">Todos</h2>
+      <h2 className="text-3xl font-bold mb-8 text-neutral-800">
+        {completed ? "Completed Todos" : "Pending Todos"}
+        </h2>
       <div className="grid grid-cols-1 gap-6">
-        {(todos.length !== 0) && todos.map((todo) => {
+        {filteredTodos.map((todo) => {
           return (
             <div key={todo.ID}
             className="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow">
