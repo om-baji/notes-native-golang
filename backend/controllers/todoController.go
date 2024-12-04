@@ -217,7 +217,7 @@ func ToggleTodo(c *gin.Context) {
 
 func DeleteTodo(c *gin.Context) {
 	var body struct {
-		ID string
+		ID uint
 	}
 
 	err := c.Bind(&body)
