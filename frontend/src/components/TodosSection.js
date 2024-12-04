@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 import { todoState } from "../store/TodoAtom";
 
-const TodosSection = ({completed}) => {
+const TodosSection = ({completed,refresh,expanded}) => {
   const [todos, setTodos] = useRecoilState(todoState);
 
   const {isLoading,isError,error} = useQuery({
@@ -60,7 +60,7 @@ const TodosSection = ({completed}) => {
           return (
             <div key={todo.ID}
             className="bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-shadow">
-              <TodoComponent content={todo.Content} id={todo.ID} completed={todo.Completed}/>
+              <TodoComponent content={todo.Content} id={todo.ID} completed={todo.Completed} refresh={refresh} expanded={expanded}/>
             </div>
           );
         })}

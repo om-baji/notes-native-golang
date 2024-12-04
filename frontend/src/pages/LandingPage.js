@@ -8,7 +8,7 @@ const LandingPage = () => {
     <div className="grid grid-cols-[18%_1fr_1fr] min-h-screen">
       <SideBar />
 
-      <TodosSection completed={false}/>
+      <TodosSection completed={false} refresh={false}/>
 
       <NotesSection expanded={false}/>
     </div>

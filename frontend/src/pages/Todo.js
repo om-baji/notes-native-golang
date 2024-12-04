@@ -7,9 +7,9 @@ const Todo = () => {
     <div className="grid grid-cols-[18%_1fr_1fr] min-h-screen">
       <SideBar />
 
-      <TodosSection completed={false} />
+      <TodosSection completed={false} refresh={true} expanded={true}/>
         
-      <TodosSection completed={true} />
+      <TodosSection completed={true} refresh={true} expanded={true}/>
     </div>
   );
 };
