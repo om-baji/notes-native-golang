@@ -11,10 +11,10 @@ import (
 
 func getNote(ID uint) (models.Note, error) {
 	var note models.Note
-	err := initialiser.DB.First(&note).Where("ID=?", ID)
+	err := initialiser.DB.Where("ID = ?", ID).First(&note).Error
 
 	if err != nil {
-		fmt.Println("Something went wrong!")
+		fmt.Println("Something went wrong!", err)
 		return models.Note{}, nil
 	}
 
@@ -173,10 +173,10 @@ func UpdateNote(c *gin.Context) {
 	if updateBody.Title == "" {
 		updateBody.Title = note.Title
 	}
-
 	updatedNote := models.Note{
 		Title:   updateBody.Title,
 		Content: updateBody.Content,
+		Email:   note.Email,
 	}
 
 	if err := updatedNote.Validate(); err != nil {
