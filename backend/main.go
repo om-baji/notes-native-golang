@@ -11,7 +11,7 @@ import (
 )
 
 func init() {
-	initialiser.LoadEnv()
+	// initialiser.LoadEnv()
 	initialiser.ConnectDb()
 	initialiser.SyncDB()
 }
