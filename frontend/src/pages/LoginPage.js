@@ -1,13 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import React from "react";
-import { useRecoilState } from "recoil";
-import { emailState, passwordState } from "../store/inputAtom";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../config";
 import { SignInSchema } from "../utils/models";
 
 const LoginPage = () => {
-  const [email, setEmail] = useRecoilState(emailState);
-  const [password, setPassword] = useRecoilState(passwordState);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const navigate = useNavigate();
 

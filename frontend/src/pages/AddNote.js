@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useRecoilState } from "recoil";
-import SideBar from "../components/SideBar";
-import { contentState, titleState } from "../store/inputAtom";
 import { useNavigate } from "react-router-dom";
+import SideBar from "../components/SideBar";
+import api from "../config";
 
 const AddNote = () => {
-  const [title, setTitle] = useRecoilState(titleState);
-  const [content, setContent] = useRecoilState(contentState);
+  const [title, setTitle] = useState(null);
+  const [content, setContent] = useState(null);
 
   const navigate = useNavigate();
 

@@ -1,12 +1,10 @@
-import React from "react";
-import TodoComponent from "./TodoComponent";
 import { useQuery } from "@tanstack/react-query";
-import { useRecoilState } from "recoil";
-import { todoState } from "../store/TodoAtom";
+import React, { useState} from "react";
 import api from "../config";
+import TodoComponent from "./TodoComponent";
 
 const TodosSection = ({completed,refresh,expanded}) => {
-  const [todos, setTodos] = useRecoilState(todoState);
+  const [todos, setTodos] = useState([]);
 
   const {isLoading,isError,error} = useQuery({
     queryKey: ["todos"],

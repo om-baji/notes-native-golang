@@ -40,7 +40,7 @@ const TodoComponent = ({ content, id, completed, refresh, expanded }) => {
           checked={isChecked}
           onChange={() => {
             handleCheckboxChange();
-            fetch(`http://localhost:8080/todo/${id}`, {
+            fetch(`${api}/todo/${id}`, {
               method: "PUT",
               credentials: "include",
               headers: { "Content-Type": "application/json" },

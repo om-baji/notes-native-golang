@@ -1,12 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { useRecoilState } from "recoil";
-import { noteState } from "../store/NotesAtom";
-import NoteComponent from "./NoteComponent";
+import React, { useState} from "react";
 import api from "../config";
+import NoteComponent from "./NoteComponent";
 
 const NotesSection = ({expanded}) => {
-  const [notes, setNotes] = useRecoilState(noteState);
+  const [notes, setNotes] = useState(null);
 
   const { isLoading, isError, error } = useQuery({
     queryKey: ["notes"],

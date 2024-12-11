@@ -1,6 +1,6 @@
 import React from "react";
-import { replace, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import api from "../config";
 
 const NoteComponent = ({ title, content, id, expanded }) => {

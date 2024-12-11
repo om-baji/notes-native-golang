@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
 import toast from "react-hot-toast";
-import { todoInputState } from "../store/todoInput";
+import { useNavigate } from "react-router-dom";
 import api from "../config";
 
 const SideBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [todoInput, setTodoInput] = useRecoilState(todoInputState);
+  const [todoInput, setTodoInput] = useState(null);
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
