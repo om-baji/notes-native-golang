@@ -13,6 +13,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+func Health(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"Message": "Health Ok!",
+	})
+}
+
 func Signup(c *gin.Context) {
 	var body struct {
 		Name     string

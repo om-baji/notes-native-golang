@@ -28,6 +28,7 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 
+	router.GET("/", controllers.Health)
 	router.POST("/signup", controllers.Signup)
 	router.POST("/signin", controllers.Login)
 	router.GET("/validate", middleware.RequireAuth, controllers.Validate)
