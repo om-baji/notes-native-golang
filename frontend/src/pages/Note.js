@@ -17,7 +17,7 @@ const Note = () => {
   const { isLoading, error, isError } = useQuery({
     queryKey: ["viewNote", ID],
     queryFn: async () => {
-      const response = await fetch(`http://localhost:8080/note?id=${ID}`, {
+      const response = await fetch(`${api}/note?id=${ID}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -38,7 +38,7 @@ const Note = () => {
 
   const handleSave = async () => {
     try {
-      const res = await fetch("http://localhost:8080/notes", {
+      const res = await fetch(`${api}/notes`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

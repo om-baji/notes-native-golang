@@ -1,12 +1,13 @@
 import React from "react";
 import { replace, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import api from "../config";
 
 const NoteComponent = ({ title, content, id, expanded }) => {
   const handleDelete = async (ev) => {
     ev.stopPropagation();
     try {
-      const response = await fetch("http://localhost:8080/notes", {
+      const response = await fetch(`${api}/notes`, {
         method: "DELETE",
         credentials: "include",
         headers: {

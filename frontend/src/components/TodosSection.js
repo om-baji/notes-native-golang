@@ -3,6 +3,7 @@ import TodoComponent from "./TodoComponent";
 import { useQuery } from "@tanstack/react-query";
 import { useRecoilState } from "recoil";
 import { todoState } from "../store/TodoAtom";
+import api from "../config";
 
 const TodosSection = ({completed,refresh,expanded}) => {
   const [todos, setTodos] = useRecoilState(todoState);
@@ -10,7 +11,7 @@ const TodosSection = ({completed,refresh,expanded}) => {
   const {isLoading,isError,error} = useQuery({
     queryKey: ["todos"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:8080/todos", {
+      const response = await fetch(`${api}/todos`, {
         method: "GET",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

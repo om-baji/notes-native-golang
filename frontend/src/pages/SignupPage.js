@@ -20,7 +20,7 @@ const SignupPage = () => {
         throw new Error("Invalid Inputs");
       }
 
-      const response = await fetch("http://localhost:8080/signup", {
+      const response = await fetch(`${api}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

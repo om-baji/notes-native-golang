@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../config";
 
 const TodoComponent = ({ content, id, completed, refresh, expanded }) => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const TodoComponent = ({ content, id, completed, refresh, expanded }) => {
   };
 
   const handleDelete = () => {
-    fetch("http://localhost:8080/todo", {
+    fetch(`${api}/todo`, {
       method: "DELETE",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

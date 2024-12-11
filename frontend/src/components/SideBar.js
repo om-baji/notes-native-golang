@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import toast from "react-hot-toast";
 import { todoInputState } from "../store/todoInput";
+import api from "../config";
 
 const SideBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -25,7 +26,7 @@ const SideBar = () => {
   };
 
   const handleAddTodo = async () => {
-    const response = await fetch("http://localhost:8080/todos", {
+    const response = await fetch(`${api}/todos`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",

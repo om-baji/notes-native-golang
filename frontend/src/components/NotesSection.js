@@ -3,6 +3,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { noteState } from "../store/NotesAtom";
 import NoteComponent from "./NoteComponent";
+import api from "../config";
 
 const NotesSection = ({expanded}) => {
   const [notes, setNotes] = useRecoilState(noteState);
@@ -10,7 +11,7 @@ const NotesSection = ({expanded}) => {
   const { isLoading, isError, error } = useQuery({
     queryKey: ["notes"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:8080/notes", {
+      const response = await fetch(`${api}/notes`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

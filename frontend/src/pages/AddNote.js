@@ -13,7 +13,7 @@ const AddNote = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("http://localhost:8080/notes", {
+      const response = await fetch(`${api}/notes`, {
         method: "POST",
         credentials: "include",
         headers: {
