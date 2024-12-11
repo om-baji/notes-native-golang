@@ -15,7 +15,7 @@ func ConnectDb() {
 
 	var err error
 
-	uri := os.Getenv("POSTGRES_URI")
+	uri := os.Getenv("POSTGRES_URI_PRODUCTION")
 
 	dsn := uri
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
