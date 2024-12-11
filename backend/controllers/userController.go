@@ -92,7 +92,7 @@ func Signup(c *gin.Context) {
 		return
 	}
 
-	c.SetSameSite(http.SameSiteLaxMode)
+	c.SetSameSite(http.SameSiteNoneMode)
 	c.SetCookie("Authorization", tokenString, 3600*24*30, "/", "notes-native-golang.onrender.com", true, true)
 
 	c.JSON(http.StatusOK, gin.H{
@@ -155,7 +155,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	c.SetSameSite(http.SameSiteLaxMode)
+	c.SetSameSite(http.SameSiteNoneMode)
 	c.SetCookie("Authorization", tokenString, 3600*24*30, "/", "notes-native-golang.onrender.com", true, true)
 
 	c.JSON(http.StatusOK, gin.H{
