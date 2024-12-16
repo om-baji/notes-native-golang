@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-1 md:grid-cols-2">
       <div className="flex flex-col justify-center items-center h-screen bg-neutral-900 px-8">
         <h1 className="text-white text-5xl font-extrabold mb-6 tracking-tight">
           Notes Native
@@ -20,7 +20,7 @@ const App = () => {
         </Link>
       </div>
 
-      <div className="bg-zinc-100">
+      <div className="hidden md:block bg-zinc-100">
         <img alt="Loading"
         src="https://i0.wp.com/engineeringexpectations.com/wp-content/uploads/2020/10/notebook-and-pen.jpg?fit=768%2C512&ssl=1" />
       </div>

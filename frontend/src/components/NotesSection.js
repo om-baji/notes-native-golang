@@ -20,7 +20,6 @@ const NotesSection = ({expanded}) => {
       }
   
       const data = await response.json();
-      // console.log(data.notes[0]);
       setNotes(data.notes)
       return data;
     },

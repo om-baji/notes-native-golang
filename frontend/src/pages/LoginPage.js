@@ -42,8 +42,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="grid grid-cols-2">
-      <div className="flex flex-col justify-center gap-4 items-center h-screen bg-neutral-100">
+    <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="flex flex-col justify-center gap-4 items-center md:h-screen bg-neutral-100 min-h-[600px]">
         <span>Welcome back! Log in to continue</span>
 
         <input
@@ -76,7 +76,7 @@ const LoginPage = () => {
         </Link>
       </div>
 
-      <div className="flex justify-center items-center h-screen bg-neutral-900">
+      <div className="order-first md:order-last flex justify-center items-center md:h-screen bg-neutral-900 p-2">
         <div className="text-center text-white p-6 max-w-lg">
           <div className="text-3xl font-bold mb-4 text-white">Notes Native</div>
           <p className="text-lg text-gray-300 leading-relaxed">
