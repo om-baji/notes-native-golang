@@ -95,7 +95,7 @@ func GetTodos(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"Message": "Retreived Todos",
+		"message": "Retreived Todos",
 		"todos":   todos,
 		"success": true,
 	})
@@ -118,7 +118,7 @@ func GetTodo(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"Message": "Successfull",
+		"message": "Successfull",
 		"todo":    todo,
 		"success": true,
 	})
