@@ -5,12 +5,12 @@ import NotesSection from "../components/NotesSection";
 
 const LandingPage = () => {
   return (
-    <div className="grid grid-cols-[18%_1fr_1fr] min-h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-[18%_1fr_1fr] min-h-screen">
       <SideBar />
 
-      <TodosSection completed={false} refresh={false}/>
+      <TodosSection completed={false} refresh={false} />
 
-      <NotesSection expanded={false}/>
+      <NotesSection expanded={false} />
     </div>
   );
 };

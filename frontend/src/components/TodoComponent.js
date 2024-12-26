@@ -7,10 +7,19 @@ const TodoComponent = ({ content, id, completed, refresh, expanded }) => {
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(completed);
 
-  const handleCheckboxChange = () => {
+  const handleCheckboxChange = async () => {
     setIsChecked(!isChecked);
-
-    if (refresh) navigate(0);
+    try {
+      const res = await fetch(`${api}/todo/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+      if(!res.ok) throw new Error('fetch failed')
+      if (refresh) navigate(0);
+    } catch (error) {
+      console.warn(error);
+    }
   };
 
   const handleDelete = () => {
@@ -38,16 +47,7 @@ const TodoComponent = ({ content, id, completed, refresh, expanded }) => {
           type="checkbox"
           className="mr-4 w-5 h-5 accent-yellow-400"
           checked={isChecked}
-          onChange={() => {
-            handleCheckboxChange();
-            fetch(`${api}/todo/${id}`, {
-              method: "PUT",
-              credentials: "include",
-              headers: { "Content-Type": "application/json" },
-            })
-              .then((res) => console.log(res.status))
-              .catch((e) => console.log("Failed to update todo", e));
-          }}
+          onChange={handleCheckboxChange}
         />
         <h3
           className={`text-xl font-semibold ${

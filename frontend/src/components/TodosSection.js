@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import api from "../config";
 import TodoComponent from "./TodoComponent";
 
@@ -20,7 +20,6 @@ const TodosSection = ({completed,refresh,expanded}) => {
       }
 
       const data = await response.json();
-  
       setTodos(data.todos);
       return data;
     },
@@ -28,6 +27,8 @@ const TodosSection = ({completed,refresh,expanded}) => {
       console.error(err);
     },
   });
+
+  useEffect(() => {})
 
   if (isLoading) {
     return (
@@ -48,6 +49,7 @@ const TodosSection = ({completed,refresh,expanded}) => {
   }
 
   const filteredTodos = todos.filter((todo) => todo.Completed === completed)
+  console.log(filteredTodos)
 
   return (
     <div className="flex flex-col p-10 bg-gray-100">

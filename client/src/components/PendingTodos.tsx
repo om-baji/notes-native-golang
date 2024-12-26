@@ -3,7 +3,7 @@ import { useTodo } from '../hooks/useTodo'
 import Todo from './Todo'
 
 const PendingTodos: React.FC = () => {
-  const { pendingTodos } = useTodo()
+  const { pendingTodos,isPending,error } = useTodo()
 
   return (
     <div className='flex flex-col items-center p-2'>

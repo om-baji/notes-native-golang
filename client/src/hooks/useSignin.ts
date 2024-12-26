@@ -33,7 +33,7 @@ export function useSignin() {
         password,
       });
 
-      if (response.data.success) {
+      if (response.data) {
         setSuccess(true);
       } else {
         setIsError(true);
